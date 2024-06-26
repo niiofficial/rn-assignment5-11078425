@@ -1,36 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { Card, Button } from 'react-native-elements';
-import { useTheme } from '../ThemeContext';
+import { ThemeContext } from '../ThemeContext';
 
 const HomeScreen = () => {
-  const { isDarkTheme } = useTheme();
-  const styles = createStyles(isDarkTheme);
+  const { theme } = useContext(ThemeContext);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
       <View style={styles.header}>
         <Image 
-          source={{uri: 'https://randomuser.me/api/portraits/men/1.jpg'}} 
+          source={require('imgs\profile.jpg')} 
           style={styles.profileImage}
         />
         <View style={styles.headerText}>
-          <Text style={styles.welcomeText}>Welcome back,</Text>
-          <Text style={styles.nameText}>Tackie Richmond</Text>
+          <Text style={[styles.welcomeText, { color: theme.textColor }]}>Welcome back,</Text>
+          <Text style={[styles.nameText, { color: theme.textColor }]}>Tackie Richmond</Text>
         </View>
-        <Ionicons name="search" size={24} color={isDarkTheme ? 'white' : 'black'} />
+        <Ionicons name="search" size={24} color={theme.textColor} />
       </View>
 
-      <Card containerStyle={styles.cardContainer}>
+      <Card containerStyle={[styles.cardContainer, { backgroundColor: theme.cardBackgroundColor }]}>
         <View style={styles.cardContent}>
-          <Text style={styles.cardNumber}>4562 6672 8899 0207</Text>
+          <Text style={[styles.cardNumber, { color: theme.textColor }]}>4562 6672 8899 0207</Text>
           <View style={styles.cardDetails}>
-            <Text style={styles.cardText}>Tackie Richmond</Text>
-            <Text style={styles.cardText}>22/2003</Text>
-            <Text style={styles.cardText}>2789</Text>
+            <Text style={[styles.cardText, { color: theme.textColor }]}>Tackie Richmond</Text>
+            <Text style={[styles.cardText, { color: theme.textColor }]}>22/2003</Text>
+            <Text style={[styles.cardText, { color: theme.textColor }]}>2789</Text>
           </View>
-          <Text style={styles.cardText}>Mastercard</Text>
+          <Text style={[styles.cardText, { color: theme.textColor }]}>Mastercard</Text>
         </View>
       </Card>
 
@@ -58,7 +57,7 @@ const HomeScreen = () => {
       </View>
 
       <View style={styles.transactionHeader}>
-        <Text style={styles.transactionTitle}>Transaction</Text>
+        <Text style={[styles.transactionTitle, { color: theme.textColor }]}>Transaction</Text>
         <Text style={styles.sellAll}>Sell All</Text>
       </View>
 
@@ -66,44 +65,43 @@ const HomeScreen = () => {
         <View style={styles.transactionItem}>
           <Ionicons name="logo-apple" size={24} color="white" />
           <View style={styles.transactionDetails}>
-            <Text style={styles.transactionText}>Apple Store</Text>
-            <Text style={styles.transactionSubText}>Entertainment</Text>
+            <Text style={[styles.transactionText, { color: theme.textColor }]}>Apple Store</Text>
+            <Text style={[styles.transactionSubText, { color: theme.textColor }]}>Entertainment</Text>
           </View>
-          <Text style={styles.transactionAmount}>- $5,99</Text>
+          <Text style={[styles.transactionAmount, { color: theme.textColor }]}>- $5,99</Text>
         </View>
         <View style={styles.transactionItem}>
           <Ionicons name="logo-spotify" size={24} color="green" />
           <View style={styles.transactionDetails}>
-            <Text style={styles.transactionText}>Spotify</Text>
-            <Text style={styles.transactionSubText}>Music</Text>
+            <Text style={[styles.transactionText, { color: theme.textColor }]}>Spotify</Text>
+            <Text style={[styles.transactionSubText, { color: theme.textColor }]}>Music</Text>
           </View>
-          <Text style={styles.transactionAmount}>- $12,99</Text>
+          <Text style={[styles.transactionAmount, { color: theme.textColor }]}>- $12,99</Text>
         </View>
         <View style={styles.transactionItem}>
           <Ionicons name="arrow-down" size={24} color="white" />
           <View style={styles.transactionDetails}>
-            <Text style={styles.transactionText}>Money Transfer</Text>
-            <Text style={styles.transactionSubText}>Transaction</Text>
+            <Text style={[styles.transactionText, { color: theme.textColor }]}>Money Transfer</Text>
+            <Text style={[styles.transactionSubText, { color: theme.textColor }]}>Transaction</Text>
           </View>
-          <Text style={styles.transactionAmount}>$300</Text>
+          <Text style={[styles.transactionAmount, { color: theme.textColor }]}>$300</Text>
         </View>
         <View style={styles.transactionItem}>
           <Ionicons name="cart" size={24} color="white" />
           <View style={styles.transactionDetails}>
-            <Text style={styles.transactionText}>Grocery</Text>
-            <Text style={styles.transactionSubText}>Shopping</Text>
+            <Text style={[styles.transactionText, { color: theme.textColor }]}>Grocery</Text>
+            <Text style={[styles.transactionSubText, { color: theme.textColor }]}>Shopping</Text>
           </View>
-          <Text style={styles.transactionAmount}>- $88</Text>
+          <Text style={[styles.transactionAmount, { color: theme.textColor }]}>- $88</Text>
         </View>
       </View>
     </ScrollView>
   );
 };
 
-const createStyles = (isDarkTheme) => StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: isDarkTheme ? '#1a1a2e' : '#ffffff',
     paddingHorizontal: 10,
   },
   header: {
@@ -121,16 +119,13 @@ const createStyles = (isDarkTheme) => StyleSheet.create({
     marginLeft: 10,
   },
   welcomeText: {
-    color: isDarkTheme ? 'white' : 'black',
     fontSize: 16,
   },
   nameText: {
-    color: isDarkTheme ? 'white' : 'black',
     fontSize: 20,
     fontWeight: 'bold',
   },
   cardContainer: {
-    backgroundColor: isDarkTheme ? '#162447' : '#f0f0f0',
     borderRadius: 10,
     padding: 15,
   },
@@ -138,7 +133,6 @@ const createStyles = (isDarkTheme) => StyleSheet.create({
     alignItems: 'center',
   },
   cardNumber: {
-    color: isDarkTheme ? 'white' : 'black',
     fontSize: 18,
     letterSpacing: 2,
   },
@@ -149,7 +143,6 @@ const createStyles = (isDarkTheme) => StyleSheet.create({
     marginVertical: 10,
   },
   cardText: {
-    color: isDarkTheme ? 'white' : 'black',
     fontSize: 14,
   },
   actions: {
@@ -158,7 +151,7 @@ const createStyles = (isDarkTheme) => StyleSheet.create({
     marginVertical: 20,
   },
   actionButton: {
-    backgroundColor: isDarkTheme ? '#162447' : '#f0f0f0',
+    backgroundColor: '#162447',
     borderRadius: 10,
     padding: 10,
   },
@@ -173,7 +166,6 @@ const createStyles = (isDarkTheme) => StyleSheet.create({
     marginVertical: 10,
   },
   transactionTitle: {
-    color: isDarkTheme ? 'white' : 'black',
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -194,15 +186,12 @@ const createStyles = (isDarkTheme) => StyleSheet.create({
     marginLeft: 10,
   },
   transactionText: {
-    color: isDarkTheme ? 'white' : 'black',
     fontSize: 16,
   },
   transactionSubText: {
-    color: 'gray',
     fontSize: 12,
   },
   transactionAmount: {
-    color: isDarkTheme ? 'white' : 'black',
     fontSize: 16,
   },
 });
