@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '../ThemeContext';
 
 const SettingsScreen = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
-
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const { isDarkTheme, toggleTheme } = useTheme();
+  const styles = createStyles(isDarkTheme);
 
   return (
     <View style={styles.container}>
@@ -40,24 +40,24 @@ const SettingsScreen = () => {
         <Text style={styles.itemText}>Theme</Text>
         <Switch
           trackColor={{ false: '#767577', true: '#81b0ff' }}
-          thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+          thumbColor={isDarkTheme ? '#f5dd4b' : '#f4f3f4'}
           ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleSwitch}
-          value={isEnabled}
+          onValueChange={toggleTheme}
+          value={isDarkTheme}
         />
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (isDarkTheme) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a2e',
+    backgroundColor: isDarkTheme ? '#1a1a2e' : '#ffffff',
     padding: 20,
   },
   header: {
-    color: 'white',
+    color: isDarkTheme ? 'white' : 'black',
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 30,
@@ -67,20 +67,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#162447',
+    backgroundColor: isDarkTheme ? '#162447' : '#f0f0f0',
     padding: 15,
     borderRadius: 10,
     marginBottom: 10,
   },
   itemText: {
-    color: 'white',
+    color: isDarkTheme ? 'white' : 'black',
     fontSize: 18,
   },
   switchContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#162447',
+    backgroundColor: isDarkTheme ? '#162447' : '#f0f0f0',
     padding: 15,
     borderRadius: 10,
     marginTop: 30,

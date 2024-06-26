@@ -2,8 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { Card, Button } from 'react-native-elements';
+import { useTheme } from '../ThemeContext';
 
 const HomeScreen = () => {
+  const { isDarkTheme } = useTheme();
+  const styles = createStyles(isDarkTheme);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -15,7 +19,7 @@ const HomeScreen = () => {
           <Text style={styles.welcomeText}>Welcome back,</Text>
           <Text style={styles.nameText}>Tackie Richmond</Text>
         </View>
-        <Ionicons name="search" size={24} color="white" />
+        <Ionicons name="search" size={24} color={isDarkTheme ? 'white' : 'black'} />
       </View>
 
       <Card containerStyle={styles.cardContainer}>
@@ -96,10 +100,10 @@ const HomeScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (isDarkTheme) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a2e',
+    backgroundColor: isDarkTheme ? '#1a1a2e' : '#ffffff',
     paddingHorizontal: 10,
   },
   header: {
@@ -117,16 +121,16 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   welcomeText: {
-    color: 'white',
+    color: isDarkTheme ? 'white' : 'black',
     fontSize: 16,
   },
   nameText: {
-    color: 'white',
+    color: isDarkTheme ? 'white' : 'black',
     fontSize: 20,
     fontWeight: 'bold',
   },
   cardContainer: {
-    backgroundColor: '#162447',
+    backgroundColor: isDarkTheme ? '#162447' : '#f0f0f0',
     borderRadius: 10,
     padding: 15,
   },
@@ -134,7 +138,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cardNumber: {
-    color: 'white',
+    color: isDarkTheme ? 'white' : 'black',
     fontSize: 18,
     letterSpacing: 2,
   },
@@ -145,7 +149,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   cardText: {
-    color: 'white',
+    color: isDarkTheme ? 'white' : 'black',
     fontSize: 14,
   },
   actions: {
@@ -154,7 +158,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   actionButton: {
-    backgroundColor: '#162447',
+    backgroundColor: isDarkTheme ? '#162447' : '#f0f0f0',
     borderRadius: 10,
     padding: 10,
   },
@@ -169,7 +173,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   transactionTitle: {
-    color: 'white',
+    color: isDarkTheme ? 'white' : 'black',
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -190,7 +194,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   transactionText: {
-    color: 'white',
+    color: isDarkTheme ? 'white' : 'black',
     fontSize: 16,
   },
   transactionSubText: {
@@ -198,7 +202,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   transactionAmount: {
-    color: 'white',
+    color: isDarkTheme ? 'white' : 'black',
     fontSize: 16,
   },
 });
